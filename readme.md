@@ -12,7 +12,7 @@ SZ is my name initials.
 **OutputData = szPickData(cellData,varList,varNames,subList,subNames)**: pick data for specified variable and specified subjects, given the sequence of variables and subject names.
 ## /InteractivePlotToolBox/
 Toolbox to make your figure interactive.
-Documentation in progress...
+Documentation in progress...**This could be very very very useful**
 ## /str_prc/
 **str_dereplicate.m** detect and remove replicating substrings from a given string.  
 This seems to be a function I copied from somewhere 
