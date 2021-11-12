@@ -84,7 +84,7 @@ mp_handle.Children = Children;
         end
     end
 % use nested functions to manipulate varaible "para"
-    function replot()
+    function recompute()
         mp_handle.fcn_output = plot_fc(para);
         fprintf('\n');
         cellfun(@(p)fprintf('%s: %s\n',p{3},...name
@@ -99,13 +99,13 @@ mp_handle.Children = Children;
         else% number
             para{idx}{1}=str2double(value);
         end
-        replot();
+        recompute();
     end
     function range_update(source,callbackdata)
         idx = get(source,'UserData');
         value = get(source,'Value');
         para{idx}{1}=value;
-        replot();
+        recompute();
     end
     function pool_update(source,callbackdata)
         idx = get(source,'UserData');
@@ -117,7 +117,7 @@ mp_handle.Children = Children;
         else% number
             para{idx}{1}=str2double(callbackdata.NewValue.String);
         end
-        replot();
+        recompute();
     end
     function out = get_output()
         mp_handle.fcn_output
