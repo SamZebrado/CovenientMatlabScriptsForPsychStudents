@@ -1,4 +1,4 @@
-function InteractivePlot(plot_fc,para,para_to_manipu)
+function mp = InteractivePlot(plot_fc,para,para_to_manipu)
 % this function do a plot which can be replotted with new parameters by
 % changing them using buttons or slides
 % plot_fc: function using to plot
@@ -16,10 +16,8 @@ disp 'Warning: para_to_manipu must be of boolean type';
 pause;
 end
 %% do first plotting
-exc_para = cellfun(@(c)c{1},para,'UniformOutput',false);
-plot_fc(exc_para{:});
-h = gca;% get handle of current axes
+% exc_para = cellfun(@(c)c{1},para,'UniformOutput',false);
+plot_fc(para);
 % manipulation panel
-f = figure;
-mp = GenerateManiPanel(plot_fc,para,f,h);
+mp = GenerateManiPanel(plot_fc,para);%！！！！！！！！！！！ failing to get updated ...
 end
