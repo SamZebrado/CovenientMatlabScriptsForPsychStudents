@@ -12,7 +12,7 @@ new_pos = [control_width*(dist_width_ratio_between_controls-1)...
 n_para = length(para);
 n_control_per_col = 5;% number of controls per column
 Children = cell(n_para,1);
-figure('Position',[50,50,new_pos(3)*dist_width_ratio_between_controls*(ceil(n_para/n_control_per_col) ...
+mp_handle.figure_handle = figure('Position',[50,50,new_pos(3)*dist_width_ratio_between_controls*(ceil(n_para/n_control_per_col) ...
         +dist_width_ratio_between_controls-1) ... one additional interval between the last column and the right boundary
     ,min(new_pos(4)*dist_height_ratio_between_controls*(n_control_per_col+dist_height_ratio_between_controls-1)*2,...
     new_pos(4)*dist_height_ratio_between_controls*(n_para+dist_height_ratio_between_controls-1)*2)...less than 1 column
@@ -57,7 +57,7 @@ for i_para = 1:n_para
                 'Callback', @box_update);
             
         end
-        if ismember('Pool',para_info)
+        if ismember('Pool',para_info)% bug will appear: the window size could not be correctly computed for this control
             PoolValues = cur_para{find(ismember(para_info,'Pool'))+1+1};
             Child.Pool.ButtonGroup = uibuttongroup('Visible','off',...
                 'Position',new_pos,...
@@ -109,9 +109,9 @@ mp_handle.Children = Children;
     end
     function pool_update(source,callbackdata)
         idx = get(source,'UserData');
-        display(['Previous: ' callbackdata.OldValue.String]);
-        display(['Current: ' callbackdata.NewValue.String]);
-        display('------------------');
+        disp(['Previous: ' callbackdata.OldValue.String]);
+        disp(['Current: ' callbackdata.NewValue.String]);
+        disp('------------------');
         if ischar(para{idx}{1})% char
             para{idx}{1}=callbackdata.NewValue.String;
         else% number
@@ -120,6 +120,7 @@ mp_handle.Children = Children;
         recompute();
     end
     function out = get_output()
-        mp_handle.fcn_output
+        out = mp_handle.fcn_output;
     end
+recompute();
 end
