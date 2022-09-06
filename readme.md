@@ -8,6 +8,8 @@ SZ is my name initials.
 ** CellOut = fcCellLine2Cell(CellLine) **: This function parses {{line1};{line2}} as {line1;line2} (each of line1, line2, ... is a 1*n cell).  
 **fcReadFileByLine**: reads file line-by-line and return the data in cell of string lines.  
 **fcExportCellstr2CSV**: prints cellstring into specified file using fprintf(fid,'%s').  
+## /For-PTB-Based-Experiments/
+A collection of scripts I got when I was building experiment programs
 ## /DataArrange/
 **OutputData = szPickData(cellData,varList,varNames,subList,subNames)**: pick data for specified variable and specified subjects, given the sequence of variables and subject names.
 ## /InteractivePlotToolBox/
