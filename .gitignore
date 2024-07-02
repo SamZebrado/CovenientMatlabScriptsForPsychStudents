@@ -1,0 +1,28 @@
+# Ignore Mac system files
+.DS_store
+
+# Ignore all text files
+*.txt
+
+# Ignore files related to API keys
+*.env
+
+# Ignore SASS config files
+*.sass-cache
+
+# Ignore Matlab autosave file
+**/*.asv
+
+# Running copies of .m file
+**/RC*.m
+
+# temporary drafts
+**/tmp*.m
+
+# Figures
+**/*.png
+**/*.fig
+**/*.jpg
+**/*.jpeg
+
+**/*.mat
