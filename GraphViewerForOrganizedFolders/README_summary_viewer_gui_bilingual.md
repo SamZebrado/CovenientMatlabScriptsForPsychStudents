@@ -13,37 +13,48 @@
 它支持分页浏览、多配置并行显示、配置保存与加载、自定义 Token 格式等功能，适合用于行为实验、计算机视觉、心理物理等图像数据管理与展示任务。  
 It supports paginated layout, side-by-side comparisons, saving/loading configurations, and custom token formats — ideal for behavioral experiments, computer vision, and psychophysics.
 
----
-
-## 📁 文件夹命名规范 | Folder Naming Convention
-
-默认使用正则表达式解析子文件夹名，例如：  
-By default, folder names are parsed using a regex pattern like:
-
-```
-u001_Morning_task1_r1/
-u001_Morning_task1_r2/
-u002_Evening_task2_r1/
-...
-```
-
-默认提取 4 个 token：  
-The default tokens are:
-
-- `user`: 用户 ID，例如 `u001`  
-  `user`: User ID (e.g., `u001`)
-- `session`: 实验场景，例如 `Morning`  
-  `session`: Session label (e.g., `Morning`)
-- `task`: 任务编号，例如 `task1`  
-  `task`: Task number (e.g., `task1`)
-- `rep`: 重复次数，例如 `r1`  
-  `rep`: Repetition number (e.g., `r1`)
-
-可在 GUI 内点击 “设置 Tokens” 按钮修改这些规则。  
-You can modify these by clicking the "Token Settings" button in the GUI.
 
 ---
 
+## 💼 使用场景举例 / Example Use Case
+
+适用于具有统一命名规则的图像数据，例如以下结构：  
+Suitable for data organized with consistent naming conventions like:
+
+```
+/Data/
+├── S01_Day_Morning_g1/
+│   ├── img1.png
+│   ├── img2.png
+├── S01_Night_Morning_g1/
+│   ├── img1.png
+│   ├── img2.png
+├── S02_Day_Evening_g2/
+│   ├── img1.png
+│   ├── img2.png
+```
+
+你可以设置如下字段名和正则表达式：  
+You may set token names and regex like:
+
+```matlab
+Token Names: {'subject','phase','time','gain'}
+Regex:       ^(S\d+)_(\w+)_(\w+)_g(\d+)$
+```
+
+程序将识别所有符合规则的子文件夹，并允许你选择任意字段组合查看 `img1.png`。  
+The GUI will detect all valid folders and let you view `img1.png` across matching token values.
+
+配置文件支持将字段选择和文件名保存为 `.json`，方便后续加载和复现配置。  
+Configurations including token selections and filenames can be saved to `.json` and later restored.
+
+## 📌 注意事项 / Notes
+
+- 图像需放在子文件夹中，子文件夹名需符合设定的正则表达式。
+- 图片默认支持 `.png` 格式，可在代码中扩展为 `.jpg`、`.bmp` 等。
+- 保存的默认 Token 设置保存在 `token_config.mat` 中。
+
+---
 ## 🧪 示例结构 | Demo Structure
 
 你可以运行以下脚本自动创建一个测试用的文件夹结构：  
@@ -64,19 +75,39 @@ It will create a folder named `DemoData/` containing several subfolders with tes
 summary_viewer_gui_bilingual
 ```
 
-1. 启动程序后，修改左上角控件的路径为包含子文件夹的主目录。  
-   After launching the program, set the path to the main directory containing your image subfolders.
-2. 点击 `Apply Path` 自动提取子文件夹名并更新选项。  
-   Click `Apply Path` to parse the folder names and update dropdown options.
-3. 使用下拉菜单筛选，点击 `显示图像 / Show` 显示对应图像。  
-   Use dropdowns to filter, then click `显示图像 / Show` to display the selected image.
-4. 点击 `复制配置 / Copy` 可添加一个新的筛选控件并继承当前配置。  
-   Click `复制配置 / Copy` to add a new filter block inheriting the current selection.
-5. 点击 `设置 Tokens` 自定义 Token 名与解析正则。  
-   Click `设置 Tokens` to customize token names and regex parsing rules.
-6. 可保存当前配置为 JSON 或下次加载。  
-   Save the current config to JSON for future reuse.
+1. 启动函数  
+   Run the function:
 
+   ```matlab
+   summary_viewer_gui_bilingual
+   ```
+
+2. 输入根目录路径  
+   Enter your root folder path in the path field.
+
+3. 点击 `Apply Path`  
+   解析文件夹名并更新下拉菜单与图像文件。
+
+4. 在下拉菜单中选择字段  
+   Select token values from dropdowns.
+
+5. 在右侧选择图像文件  
+   Choose a file from the right file list.
+
+6. 点击 `显示图像 / Show`  
+   View the selected image.
+
+7. 可使用 `复制配置 / Copy` 添加右侧新控件，进行配置对比。  
+   Use `Copy` to create a duplicated control block to compare settings.
+
+8. 点击顶部 `保存配置 / Save` 可保存当前所有控件状态为 JSON。  
+   Save all panel settings using the `Save` button.
+
+9. 点击 `加载配置 / Load` 可从 JSON 恢复先前设置。  
+   Load previously saved settings using the `Load` button.
+
+10. 使用 `设置 Tokens / Token Settings` 设定正则表达式与字段名，并可设为默认。  
+   Customize and persist regex + token settings using `Token Settings`.
 ---
 
 ## 🧩 功能列表 | Feature Highlights
